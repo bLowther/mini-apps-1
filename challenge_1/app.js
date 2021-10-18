@@ -4,6 +4,8 @@ a button resets the game for a new round of gameplay */
 let playTracker = {};
 let clickCounter = 0;
 const squares = document.getElementsByTagName('td');
+const reset = document.getElementById('reset');
+
 for(let square of squares) {
   square.addEventListener('click', ()=>{
     if(square.innerHTML.length === 0) {
@@ -19,18 +21,26 @@ for(let square of squares) {
     checkForWinner(playTracker, square.id);
   });
 }
+
+reset.addEventListener('click', ()=>{
+  for(let square of squares) {
+    square.innerHTML = '';
+  }
+  playTracker = {};
+})
+
 const checkForWinner = (obj ,key)=>{
   const row = key[0];
   const col =key[1];
   if (obj[row + 'a'] === obj[row + 'b'] && obj[row + 'b'] === obj[row + 'c']) {
-    console.log('Player ' + obj[key] + ' Wins!');
+    alert('Player ' + obj[key] + ' Wins!');
   } else if (obj['A' + col] === obj['B' + col] && obj['B' + col] === obj['C' + col]) {
-    console.log('Player ' + obj[key] + ' Wins!');
+    alert('Player ' + obj[key] + ' Wins!');
   } else if(obj.Aa === obj.Bb && obj.Bb === obj.Cc && obj.Bb !== undefined) {
-    console.log('Player ' + obj[key] + ' Wins!');
+    alert('Player ' + obj[key] + ' Wins!');
   } else if(obj.Ca === obj.Bb && obj.Bb === obj.Ac && obj.Bb !== undefined) {
-    console.log('Player ' + obj[key] + ' Wins!');
-  } else {
-    console.log('No winner...');
+    alert('Player ' + obj[key] + ' Wins!');
+  } else if (Object.keys(obj).length === 9) {
+    alert('Cat\'s Game!');
   }
 }
